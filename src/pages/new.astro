@@ -5,13 +5,16 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 ---
 
 <BaseLayout>
-  <div class="grid gap-8">
-    <h1>Create New Account</h1>
-    <form class="grid gap-4" id="create-account">
-      <Input name="email" label="Your Email" type="email" />
-      <Input name="password" label="Your Password" type="password" />
-      <Button intent={"accent"}>Create Account</Button>
-    </form>
+  <div class="md:mt-40 flex flex-col md:flex-row gap-8">
+    <img src="/public/home.jpg" alt="møllestræde 14" class="w-full md:w-1/2 h-120 object-cover">
+    <div id="create-contents" class="w-full md:w-1/2 flex flex-col justify-center">
+      <h1 class="text-2xl font-bold mb-4">Opret en ny konto</h1>
+      <form class="grid gap-4" id="create-account">
+        <Input name="email" label="Your Email" type="email" />
+        <Input name="password" label="Your Password" type="password" />
+        <Button intent={"accent"}>Opret konto</Button>
+      </form>
+    </div>
   </div>
 
   <script>

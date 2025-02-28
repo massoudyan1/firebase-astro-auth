@@ -6,12 +6,12 @@ import { getAuth } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCvMoUz0cPIcz_X5KtFB7lvTyO-9HIAk64",
-  authDomain: "astro-d4909.firebaseapp.com",
-  projectId: "astro-d4909",
-  storageBucket: "astro-d4909.appspot.com",
-  messagingSenderId: "552636560911",
-  appId: "1:552636560911:web:273bac353781fecf5a557a",
+  apiKey: "AIzaSyCq7w7nDR1ybWW37XmtkAlIPQjQgShDgRU",
+  authDomain: "molletrade.firebaseapp.com",
+  projectId: "molletrade",
+  storageBucket: "molletrade.firebasestorage.app",
+  messagingSenderId: "335622519491",
+  appId: "1:335622519491:web:3c8fc3121e611e5b65c076"
 };
 
 // Initialize Firebase

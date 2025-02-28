@@ -1,34 +1,42 @@
 ---
-import Button from "@/components/Button.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Maintenance from "@/components/Maintenance.astro";
+
+const mockData = [
+  {
+    name: "Mow the Lawn",
+    daysInterval: 14,
+    lastDone: new Date(2025, 2, 17), 
+  },
+  {
+    name: "Clean the Bathroom",
+    daysInterval: 7,
+    lastDone: new Date(2025, 2, 25), 
+  },
+  {
+    name: "Water the Plants",
+    daysInterval: 3,
+    lastDone: new Date(2025, 2, 27), 
+  },
+  {
+    name: "Change the Air Filter",
+    daysInterval: 30,
+    lastDone: new Date(2025, 2, 30),
+  },
+  {
+    name: "Take Out the Trash",
+    daysInterval: 2,
+    lastDone: new Date(2025, 2, 28),
+  },
+];
+
 ---
 
 <BaseLayout>
   <div class="grid gap-12">
     <h1>Homepage</h1>
-    <form id="logout-form">
-      <Button>Logout</Button>
-    </form>
+    {mockData.map((item) => (
+      <Maintenance {...item} />
+    ))}
   </div>
-
-  <script>
-    import { isInputError } from "astro:actions";
-    import { actions } from "astro:actions";
-
-    const logout = document.querySelector("#logout-form") as HTMLFormElement;
-
-    logout.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const { error, data } = await actions.logoutAccount.safe();
-      if (error) {
-        console.log(error);
-        if (isInputError(error)) {
-          console.log(error.fields);
-        }
-        return;
-      }
-
-      window.location.reload();
-    });
-  </script>
 </BaseLayout>

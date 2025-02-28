@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import Button from "@/components/Button.astro";
 
 type Props = {
   title?: string;
@@ -31,19 +31,42 @@ const { userEmail } = Astro.locals;
   <body
     class="bg-gradient-to-b from-black to-theme-base text-theme-text text-base relative min-h-screen grid-rows-auto-1fr grid place-items-center"
   >
+  {userEmail && 
     <header>
       <div
-        class="py-8 text-theme-accent font-bold text-3xl grid place-items-center"
+        id="topbar"
+        class="py-8 font-bold text-m flex flex-row items-center justify-center space-x-4"
         aria-label="Firebase and Astro"
       >
-        <Icon name="firebase" width={300} height={70} />
-        <Icon name="plus" class="-mb-7 -mt-2 size-8 -z-10" />
-        <Icon name="astro" width={400} height={110} />
+      <p>Du er logget ind som, {userEmail}</p>
+      <form id="logout-form">
+        <Button>Log ud</Button>
+      </form>
       </div>
-      {userEmail && <p>Welcome back, {userEmail}</p>}
     </header>
+    }
     <main class="container grid place-items-center">
       <slot />
     </main>
+    <script>
+      import { isInputError } from "astro:actions";
+      import { actions } from "astro:actions";
+  
+      const logout = document.querySelector("#logout-form") as HTMLFormElement;
+  
+      logout.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const { error, data } = await actions.logoutAccount.safe();
+        if (error) {
+          console.log(error);
+          if (isInputError(error)) {
+            console.log(error.fields);
+          }
+          return;
+        }
+  
+        window.location.reload();
+      });
+    </script>
   </body>
 </html>

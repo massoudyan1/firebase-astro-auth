@@ -1,0 +1,49 @@
+---
+import { addDays, differenceInDays } from 'date-fns';
+
+export interface Props {
+  name: string;
+  daysInterval: number;
+  lastDone: Date;
+}
+
+const { name, lastDone, daysInterval } = Astro.props;
+
+// Get today's date without time (to avoid small differences)
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
+
+const nextDeadline = addDays(lastDone, daysInterval);
+
+
+const progress = (differenceInDays(lastDone, nextDeadline) / differenceInDays(today, lastDone)) * 100;
+
+const getProgressColor = (progress: number) => {
+  if (progress < 50) return 'bg-green-500'; // Success color
+  if (progress < 75) return 'bg-yellow-500'; // Warning color
+  return 'bg-red-500'; // Error color
+};
+
+const progressColor = getProgressColor(progress);
+---
+
+<div class="p-4 border rounded-lg shadow-md">
+  <h2 class="text-xl font-bold mb-2">{name}</h2>
+
+  <div class="progress-container w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+    <div class={`h-full ${progressColor}`} style={`width: ${progress}%`}></div>
+  </div>
+
+  <div class="mt-2 text-sm text-gray-600">
+    <p>Last done: {new Date(lastDone).toLocaleDateString('da-DK')}</p>
+    <p>Next deadline: {new Date(nextDeadline).toLocaleDateString('da-DK')}</p>
+    <p>Days interval: {daysInterval} days</p>
+  </div>
+</div>
+
+<style>
+    progress {
+        background: yellow;
+    }
+</style>
